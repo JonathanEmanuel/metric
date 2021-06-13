@@ -1,0 +1,24 @@
+<div id="app" class="container">
+    <h1>Metric</h1>
+    <div class="row">
+        <div class="col-lg-11 col-md-12">
+            <h4>Historial de Ingresos y Gastos   anuales</h4>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-2">
+                    <select v-model="anio" @change="ingresosSalidasAnio()" class="form-control">
+                        <option v-for="(anio, index) in anios" :value="anio" v-text="anio"></option>
+                    </select>
+                </div>
+            </div>
+            <div id="graficoSalidasIngresos"></div>
+
+
+        </div>
+
+    </div>
+
+</div>

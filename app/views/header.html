@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo(APP_NOMBRE); ?></title>
+    <link rel="stylesheet" href="../../public/libs/morris/morris.css">
+    <link rel="stylesheet" href="public/libs/bootstrap/css/bootstrap.min.css">
+    <script src="public/libs/jquery-3.5.1.slim.min.js"></script>
+    <script src="public/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="public/libs/vue.js"></script>
+    <script src="public/libs/axios.min.js"></script>
+    <script src="public/libs/raphael-min.js"></script>
+    <script src="public/libs/morris/morris.min.js"></script>
+    <script src="public/js/principal.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Metric</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a id="menu-index" class="nav-link" href="index">Movimientos</a>
+                </li>
+                <li class="nav-item">
+                    <a id="menu-historial" class="nav-link" href="historial">Historial</a>
+                </li>
+                <li class="nav-item">
+                    <a id="menu-salir" class="nav-link" href="logout.php">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo(APP_NOMBRE); ?></title>
+    <link rel="stylesheet" href="public/libs/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-3 col-sm-2"></div>
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h2 class="text-info text-center">Metric</h2>
+                        <form id="frm-login" action="index.php" method="POST">
+                            <div class="form-group">
+                                <label for="email">Correo electrónico</label>
+                                <input id="txt-email" name="email" class="form-control" type="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="clave">Contraseña</label>
+                                <input id="txt-clave" name="clave" class="form-control" type="password" required>
+                            </div>
+                            <div id="alert-login" class="alert alert-warning mt-1" role="alert" <?php echo "style='display:" .$display."'"; ?>>
+                                Usuario o Contraseña invalidos
+                            </div>
+                            <div class="">
+                                <button class="btn btn-primary btn-block" type="submit">Ingresar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-2"></div>
+        </div>
+    </div>
+    <script>
+        let mensaje = document.getElementById('alert-login');
+        document.getElementById('txt-email').addEventListener('focus', function() {
+            mensaje.style.display = 'none';
+        })
+
+        document.getElementById('txt-clave').addEventListener('focus', function() {
+            mensaje.style.display = 'none';
+        })
+    </script>
+</body>
+</html>

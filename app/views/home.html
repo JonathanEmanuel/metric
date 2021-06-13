@@ -1,0 +1,170 @@
+    <div id="app" class="container">
+        <h1>Metric</h1>
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <h4>Movimientos</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <select v-model="tipoId" v-on:change="movimientoListar" class="form-control">
+                            <option v-for="(tipo, index) in tipos" :value="tipo.TipoId" v-text="tipo.Descripcion"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select v-model="mes.Id" @change="actualizarFecha()" class="form-control">
+                            <option v-for="(mes, index) in meses" :value="mes.Id" v-text="mes.Mes"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select v-model="anio" @change="actualizarFecha()" class="form-control">
+                            <option v-for="(anio, index) in anios" :value="anio" v-text="anio"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              N+
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a @click="modalMovimientoAbrir()" class="dropdown-item" href="#">Movimiento</a>
+                                <a @click="modalCategoriaAbrir()" class="dropdown-item" href="#">Categoria</a>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Concepto</th>
+                            <th>Valor</th>
+                            <th>Realizado</th>
+                            <th> Categoria</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(movimiento, index) in movimientos" v-bind:class="{'table-active': movimiento.Confirmado}">
+                            <td v-text="movimiento.FechaPlanificado"></td>
+                            <td v-text="movimiento.Descripcion"></td>
+                            <td v-text="movimiento.ValorPlanificado"></td>
+                            <td><input v-model="movimiento.Confirmado" v-on:change="movimientoConfirmar(movimiento)" v-bind:disabled="movimiento.Confirmado" class="form-controls" type="checkbox"></td>
+                            <td><span class="badge badge-pill badge-light" v-text="movimiento.Categoria"></span></td>
+                            <td><button @click="movimientoAbrir(movimiento)" class="btn btn-outline-primary btn-sm" type="button">E-</button></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total</th>
+                            <td></td>
+                            <td colspan="3" v-text="movimientoSumatoria"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <h4>Resumen del mes</h4>
+
+                <div id="graficoSalidasIngresos"></div>
+                
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong class="text-primary">Ingresos $<span v-text="valorIngresos"></span></strong>  </li>
+                            <li class="list-group-item"><strong class="text-danger">Gastos  $<span v-text="valorGastos"></span></strong></li>
+                            <li class="list-group-item"><strong class="text-success">Resto  $<span v-text="valorDisponible"></span></strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 class="mt-2">Grupos</h4>
+                <div id="graficoPorciones"></div>
+
+            </div>
+        </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalMovimiento" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalMovimientoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalMovimientoLabel">Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-7 form-group">
+                            <label>Concepto</label>
+                            <input v-model="movimiento.Concepto" class="form-control" type="text">
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <label>Tipo</label>
+                            <select v-model="movimiento.TipoId" v-on:change="categoriasListar" class="form-control">
+                                <option value="0">Seleccionar</option>
+                                <option :value="tipo.TipoId"  v-for="(tipo, index) in tipos" v-text="tipo.Descripcion"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Fecha</label>
+                            <input v-model="movimiento.FechaPlanificado" class="form-control" type="date">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Valor</label>
+                            <input v-model="movimiento.ValorPlanificado" class="form-control" type="number">
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <label>Categorias</label>
+                            <select v-model="movimiento.CategoriaId" class="form-control">
+                                <option value="0">Seleccionar</option>
+                                <option v-for="(categoria, index) in categorias" :value="categoria.CategoriaId" v-text="categoria.Descripcion"></option>
+                            </select>
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button @click="movimientoGuardar()" type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCategoria" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalCategoriaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCategoriaLabel">Nueva categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Tipo</label>
+                            <select v-model="categoria.TipoId" class="form-control">
+                                <option value="0">Seleccionar</option>
+                                <option v-for="(tipo, index) in tipos" :value="tipo.TipoId" v-text="tipo.Descripcion"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label>Descripción</label>
+                            <input v-model.trim="categoria.Descripcion" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button @click="categoriaGuardar()" type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
