@@ -33,6 +33,7 @@ const app = new Vue({
             Ahorros: 0
         },
         graficoPorciones: null,
+        graficoValores: null
 
     },
     // Ejecucion despues que se renderiza la vista
@@ -148,7 +149,7 @@ const app = new Vue({
                 });
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             }).then(function () {
                 // always executed
             });
@@ -172,7 +173,7 @@ const app = new Vue({
                 });
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             }).then(function () {
                 // always executed
             });
@@ -196,11 +197,10 @@ const app = new Vue({
                     alert('ERROR, No se pudo completar la operación');
                     return;
                 }
-                console.log(respuesta.datos);
                 $('#modalCategoria').modal('hide');
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             }).then(function () {
                 app.categoriasListar();
             });
@@ -242,13 +242,12 @@ const app = new Vue({
 
                     index =  porciones.findIndex( (registro) =>  registro.CategoriaId === parseInt(movimiento.CategoriaId)   );
                     if ( index != -1 ) {
-                        console.log('E', index)
-                        //index = porciones.find((registro) => {registro.CategoriaId == movimiento.CategoriaId});
+                        //console.log('E', index)
                         porciones[index].Cantidad = porciones[index].Cantidad + 1;
                         porciones[index].Valor = porciones[index].Valor + parseFloat(movimiento.ValorPlanificado);
 
                     } else {
-                        console.log('N', index)
+                        //console.log('N', index)
                         porciones.push({
                             CategoriaId: parseInt(movimiento.CategoriaId),
                             Descripcion: movimiento.Categoria,
@@ -259,14 +258,21 @@ const app = new Vue({
                 });
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             }).then(function () {
                 console.table(porciones);
                 if ( app.graficoPorciones == null){
-                    app.graficoGenerar(porciones, total);
+                    app.graficoCategoriasGenerar(porciones, total);
                 } else {
-                    app.graficoActualizar(porciones, total);
+                    app.graficoCategoriasActualizar(porciones, total);
                 }
+ 
+                if ( app.graficoValores == null){
+                    app.graficoValoresGenerar(porciones);
+                } else {
+                    app.graficoValoresActualizar(porciones);
+                }
+ 
             });
         },
         movimientoGuardar: function(){
@@ -286,12 +292,12 @@ const app = new Vue({
                     alert('ERROR, No se pudo completar la operación');
                     return;
                 }
-                // console.log(respuesta.datos);
+
                 app.movimientoListar();
                 $('#modalMovimiento').modal('hide');
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             }).then(function () {
                 app.resumen();
             });
@@ -327,10 +333,10 @@ const app = new Vue({
                     return;
                 }
 
-                console.log(respuesta.datos)               
+                //console.log(respuesta.datos)               
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             }).then(function () {
                 // always executed
             });
@@ -353,12 +359,12 @@ const app = new Vue({
                 app.resumenMes.Ahorros = datos.Ahorros != null ? parseInt(datos.Ahorros) : 0;
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             }).then(function () {
                 // always executed
             });
         },
-        graficoGenerar: function(porciones, total){
+        graficoCategoriasGenerar: function(porciones, total){
             let dataSet = [];
             console.info('Generando Grafico Porciones', porciones);
             console.info(total);
@@ -391,9 +397,9 @@ const app = new Vue({
 
 
         },
-        graficoActualizar: function(porciones, total){
+        graficoCategoriasActualizar: function(porciones, total){
             console.info('Generando Grafico Porciones', porciones, total);
-            let setDatos = [];
+            let setDatos = porciones;
             for (let index = 0; index < porciones.length; index++) {
                 const categoria = porciones[index];
                 //console.log(categoria);
@@ -409,6 +415,34 @@ const app = new Vue({
                 
             }
             this.graficoPorciones.setData(setDatos);
+        },
+        graficoValoresGenerar: function(porciones){
+            console.log(porciones);
+            let dataSet = porciones;
+            console.info('Generando Grafico Valores', porciones);
+  
+
+            this.graficoValores = new Morris.Bar({
+                element: 'graficoValores',
+                data: dataSet,
+                xkey: 'Descripcion',
+                // A list of names of data record attributes that contain y-Valors.
+                ykeys: ['Valor'],
+                // Labels for the ykeys -- will be displayed when you hover over the
+                // chart.
+                labels: ['Descripcion']
+                
+            }).on('click', function(i, row){
+                console.log(i, row);
+            });
+
+
+        },
+        graficoValoresActualizar: function(porciones){
+            console.info('Generando Valores Porciones', porciones);
+            return;
+            let setDatos = porciones;
+            this.graficoValores.setData(setDatos);
         },
     }
 })
