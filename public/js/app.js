@@ -266,7 +266,7 @@ const app = new Vue({
                 } else {
                     app.graficoCategoriasActualizar(porciones, total);
                 }
- 
+
                 if ( app.graficoValores == null){
                     app.graficoValoresGenerar(porciones);
                 } else {
@@ -366,8 +366,8 @@ const app = new Vue({
         },
         graficoCategoriasGenerar: function(porciones, total){
             let dataSet = [];
-            console.info('Generando Grafico Porciones', porciones);
-            console.info(total);
+            console.info('Generando Grafico Porciones', porciones, total);
+            
             for (let index = 0; index < porciones.length; index++) {
                 const categoria = porciones[index];
                 console.log(categoria);
@@ -398,11 +398,11 @@ const app = new Vue({
 
         },
         graficoCategoriasActualizar: function(porciones, total){
-            console.info('Generando Grafico Porciones', porciones, total);
-            let setDatos = porciones;
+            console.info('Actualizar Grafico Porciones', porciones, total);
+            let setDatos = [];
             for (let index = 0; index < porciones.length; index++) {
                 const categoria = porciones[index];
-                //console.log(categoria);
+                console.log(categoria);
                 const porcentaje = categoria.Valor * 100 / total;
                 porciones[index].Porcentaje =  porcentaje.toFixed(2);
             }
@@ -419,7 +419,7 @@ const app = new Vue({
         graficoValoresGenerar: function(porciones){
             console.log(porciones);
             let dataSet = porciones;
-            console.info('Generando Grafico Valores', porciones);
+            console.info('Actualizar Grafico Valores', porciones);
   
 
             this.graficoValores = new Morris.Bar({
@@ -440,7 +440,6 @@ const app = new Vue({
         },
         graficoValoresActualizar: function(porciones){
             console.info('Generando Valores Porciones', porciones);
-            return;
             let setDatos = porciones;
             this.graficoValores.setData(setDatos);
         },
