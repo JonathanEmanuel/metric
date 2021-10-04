@@ -26,7 +26,7 @@
         }
 
         public function guardar(){
-            $this->query = "INSERT INTO Movimientos(Descripcion, FechaPlanificado, ValorPlanificado, CuadernoId, CategoriaId, TipoId)
+            $this->query = "INSERT INTO movimientos(Descripcion, FechaPlanificado, ValorPlanificado, CuadernoId, CategoriaId, TipoId)
                             VALUES(:descripcion, :fechaPlanificado, :valorPlanificado, :cuadernoId, :categoriaId, :tipoId)";
             $this->ejecutar(array(  ':descripcion' => $this->descripcion, 
                                     ':fechaPlanificado' => $this->fechaPlanificado, 
@@ -39,7 +39,7 @@
         }
 
         public function actualizar(){
-            $this->query = "UPDATE Movimientos
+            $this->query = "UPDATE movimientos
                             SET Descripcion = :descripcion,
                                 FechaPlanificado = :fechaPlanificado,
                                 ValorPlanificado = :valorPlanificado,
@@ -56,7 +56,7 @@
         }
 
         public function valoresReales(){
-            $this->query = "UPDATE Movimientos
+            $this->query = "UPDATE movimientos
                             SET FechaReal = :fechaReal,
                                 ValorReal = :valorReal
                             WHERE MovimientoId = :movimientoId";

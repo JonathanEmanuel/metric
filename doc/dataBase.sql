@@ -1,4 +1,4 @@
-CREATE TABLE `Usuarios` (
+CREATE TABLE `usuarios` (
     `UsuarioId` INTEGER NOT NULL AUTO_INCREMENT,
     `Nombre` VARCHAR(128) NOT NULL,
     `Apellido` VARCHAR(128) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE `Usuarios` (
     PRIMARY KEY (`UsuarioId`)
 );
 
-CREATE TABLE `Cuadernos` (
+CREATE TABLE `cuadernos` (
     `CuadernoId` INTEGER NOT NULL AUTO_INCREMENT,
     `Nombre` VARCHAR(256) NOT NULL,
     `UsuarioId` INTEGER NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE `Cuadernos` (
     PRIMARY KEY (`CuadernoId`)
 );
 
-CREATE TABLE `CategoriasMovimiento` (
+CREATE TABLE `categoriasmovimiento` (
     `CategoriaId` INTEGER NOT NULL AUTO_INCREMENT,
     `Descripcion` VARCHAR(128) NOT NULL,
     `CuadernoId` INTEGER NOT NULL,
@@ -26,14 +26,14 @@ CREATE TABLE `CategoriasMovimiento` (
     PRIMARY KEY (`CategoriaId`)
 );
 
-CREATE TABLE `TiposMovimiento` (
+CREATE TABLE `tiposmovimiento` (
     `TipoId` INTEGER NOT NULL AUTO_INCREMENT,
     `Descripcion` VARCHAR(128) NOT NULL,
     `Borrado` DATE NULL,
     PRIMARY KEY (`TipoId`)
 );
 
-CREATE TABLE `Movimientos` (
+CREATE TABLE `movimientos` (
     `MovimientoId` INTEGER NOT NULL AUTO_INCREMENT,
     `Descripcion` VARCHAR(64) NOT NULL,
     `FechaPlanificado` DATE NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `Movimientos` (
     PRIMARY KEY (`MovimientoId`)
 );
 
-ALTER TABLE `Movimientos` ADD FOREIGN KEY (`CuadernoId`) REFERENCES `Cuadernos`(`CuadernoId`);
-ALTER TABLE `Movimientos` ADD FOREIGN KEY (`CategoriaId`) REFERENCES `CategoriasMovimiento`(`CategoriaId`);
-ALTER TABLE `Cuadernos` ADD FOREIGN KEY (`UsuarioId`) REFERENCES `Usuarios`(`UsuarioId`);
-ALTER TABLE `CategoriasMovimiento` ADD FOREIGN KEY (`CuadernoId`) REFERENCES `Cuadernos`(`CuadernoId`);
+ALTER TABLE `movimientos` ADD FOREIGN KEY (`CuadernoId`) REFERENCES `cuadernos`(`CuadernoId`);
+ALTER TABLE `movimientos` ADD FOREIGN KEY (`CategoriaId`) REFERENCES `categoriasmovimiento`(`CategoriaId`);
+ALTER TABLE `cuadernos` ADD FOREIGN KEY (`UsuarioId`) REFERENCES `usuarios`(`UsuarioId`);
+ALTER TABLE `categoriasmovimiento` ADD FOREIGN KEY (`CuadernoId`) REFERENCES `cuadernos`(`CuadernoId`);

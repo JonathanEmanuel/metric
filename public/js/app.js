@@ -134,7 +134,7 @@ const app = new Vue({
         },
         tiposListar: function(){
             this.tipos = []; 
-            axios.get('./movimientoTipo/listar', {})
+            axios.get('movimientoTipo/listar', {})
             .then(function (response) {
                 let respuesta = response.data;
                 if ( respuesta.error != 'N'){
@@ -150,6 +150,7 @@ const app = new Vue({
             })
             .catch(function (error) {
                 console.error(error);
+                alert('Ocurrio un error al listar');
             }).then(function () {
                 // always executed
             });
@@ -157,7 +158,7 @@ const app = new Vue({
         categoriasListar: function(){
             this.categorias = [];
             this.movimiento.CategoriaId = 0;
-            axios.post('/categoria/listar', {TipoId: this.movimiento.TipoId})
+            axios.post('categoria/listar', {TipoId: this.movimiento.TipoId})
             .then(function (response) {
                 let respuesta = response.data;
                 if ( respuesta.error != 'N'){
@@ -174,6 +175,7 @@ const app = new Vue({
             })
             .catch(function (error) {
                 console.error(error);
+                alert('Ocurrio un error al listar');
             }).then(function () {
                 // always executed
             });
@@ -190,7 +192,7 @@ const app = new Vue({
                 Descripcion: this.categoria.Descripcion
             }
 
-            axios.post('/categoria/guardar', parametros)
+            axios.post('categoria/guardar', parametros)
             .then(function (response) {
                 const respuesta = response.data;
                 if ( respuesta.error != 'N'){
@@ -201,6 +203,7 @@ const app = new Vue({
             })
             .catch(function (error) {
                 console.error(error);
+                alert('Ocurrio un error al guardar');
             }).then(function () {
                 app.categoriasListar();
             });
@@ -217,7 +220,7 @@ const app = new Vue({
             }
             localStorage.setItem('tipoId', this.tipoId);
 
-            axios.post('./movimiento/listar', parametros)
+            axios.post('movimiento/listar', parametros)
             .then(function (response) {
                 let respuesta = response.data;
                 if ( respuesta.error != 'N'){
@@ -259,6 +262,7 @@ const app = new Vue({
             })
             .catch(function (error) {
                 console.error(error);
+                alert('Ocurrio un error al listar');
             }).then(function () {
                 console.table(porciones);
                 if ( app.graficoPorciones == null){
@@ -285,7 +289,7 @@ const app = new Vue({
                 TipoId: this.movimiento.TipoId
             }
 
-            axios.post('/movimiento/guardar', parametros)
+            axios.post('movimiento/guardar', parametros)
             .then(function (response) {
                 const respuesta = response.data;
                 if ( respuesta.error != 'N'){
@@ -298,6 +302,7 @@ const app = new Vue({
             })
             .catch(function (error) {
                 console.error(error);
+                alert('Ocurrio un error al guardar');
             }).then(function () {
                 app.resumen();
             });
@@ -324,7 +329,7 @@ const app = new Vue({
                 ValorPlanificado: movimiento.ValorPlanificado
             }
 
-            axios.post('/movimiento/marcarRealizado', parametros)
+            axios.post('movimiento/marcarRealizado', parametros)
             .then(function (response) {
                 let respuesta = response.data;
                 if ( respuesta.error != 'N'){
@@ -337,6 +342,7 @@ const app = new Vue({
             })
             .catch(function (error) {
                 console.error(error);
+                alert('Ocurrio un error al guardar');
             }).then(function () {
                 // always executed
             });

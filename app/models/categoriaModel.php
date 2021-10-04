@@ -17,14 +17,14 @@
         }
 
         public function guardar(){
-            $this->query = "INSERT INTO CategoriasMovimiento(Descripcion, CuadernoId, TipoId)
+            $this->query = "INSERT INTO categoriasmovimiento(Descripcion, CuadernoId, TipoId)
                             VALUES(:descripcion, :cuadernoId, :tipoId)";
             $this->ejecutar(array(':descripcion' => $this->descripcion, ':cuadernoId' => $this->cuadernoId, ':tipoId' => $this->tipoId));
             $this->categoriaId = $this->ultimoId();
         }
 
         public function actualizar(){
-            $this->query = "UPDATE CategoriasMovimiento
+            $this->query = "UPDATE categoriasmovimiento
                             SET Descripcion = :descripcion
                             WHERE CategoriaId = :categoriaId)";
             $this->ejecutar(array(':descripcion' => $this->descripcion, ':categoriaId' => $this->categoriaId));
