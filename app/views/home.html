@@ -4,12 +4,16 @@
             <div class="col-lg-8 col-md-8">
                 <h4>Movimientos</h4>
                 <div class="row">
+                    <div class="col-md-6">
+                        <input v-model="movimientoBuscar" type="search" class="form-control" placeholder="Buscar Movimiento">
+                    </div>
                     <div class="col-md-4">
                         <select v-model="tipoId" v-on:change="movimientoListar" class="form-control">
                             <option v-for="(tipo, index) in tipos" :value="tipo.TipoId" v-text="tipo.Descripcion"></option>
                         </select>
                     </div>
-                    <div class="col-md-4">
+                    <!--
+                         <div class="col-md-4">
                         <select v-model="mes.Id" @change="actualizarFecha()" class="form-control">
                             <option v-for="(mes, index) in meses" :value="mes.Id" v-text="mes.Mes"></option>
                         </select>
@@ -18,7 +22,8 @@
                         <select v-model="anio" @change="actualizarFecha()" class="form-control">
                             <option v-for="(anio, index) in anios" :value="anio" v-text="anio"></option>
                         </select>
-                    </div>
+                    </div> 
+                    -->
                     <div class="col-md-2">
                         <div class="dropdown">
                             <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,6 +34,12 @@
                                 <a @click="modalCategoriaAbrir()" class="dropdown-item" href="#">Categoria</a>
                             </div>
                           </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 mt-3">
+
                     </div>
                 </div>
 
@@ -44,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(movimiento, index) in movimientos" v-bind:class="{'table-active': movimiento.Confirmado}">
+                        <tr v-for="(movimiento, index) in movimientosFiltro" v-bind:class="{'table-active': movimiento.Confirmado}">
                             <td v-text="movimiento.FechaPlanificado"></td>
                             <td v-text="movimiento.Descripcion"></td>
                             <td v-text="movimiento.ValorPlanificado"></td>
@@ -65,7 +76,18 @@
             </div>
             <div class="col-lg-4 col-md-4">
                 <h4>Resumen del mes</h4>
-
+                <div class="row">
+                    <div class="col-md-8">
+                        <select v-model="mes.Id" @change="actualizarFecha()" class="form-control">
+                            <option v-for="(mes, index) in meses" :value="mes.Id" v-text="mes.Mes"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select v-model="anio" @change="actualizarFecha()" class="form-control">
+                            <option v-for="(anio, index) in anios" :value="anio" v-text="anio"></option>
+                        </select>
+                    </div>
+                </div>
                 <div id="graficoSalidasIngresos"></div>
                 
                 <div class="card mt-4">

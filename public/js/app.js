@@ -16,6 +16,7 @@ const app = new Vue({
         categorias: [],
         tipoId: 1,
         tipos: [],
+        movimientoBuscar: '',
         movimiento: {
             MovimientoId: 0,
             Concepto: '',
@@ -48,12 +49,15 @@ const app = new Vue({
     computed: {
         movimientoSumatoria: function(){
             let valor = 0;
-            this.movimientos.forEach(movimiento => {
+            this.movimientosFiltro.forEach(movimiento => {
                 valor = valor + parseFloat( movimiento.ValorPlanificado )
             });
             n = valor.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
             n = n.split('').reverse().join('').replace(/^[\.]/,'');
             return n;
+        },
+        movimientosFiltro: function(){
+            return this.movimientos.filter((movimiento) => movimiento.Descripcion.toLocaleLowerCase().includes(this.movimientoBuscar.toLocaleLowerCase() ))
         },
         valorDisponible: function(){
             let resto = this.resumenMes.Ingresos - this.resumenMes.Gastos;
