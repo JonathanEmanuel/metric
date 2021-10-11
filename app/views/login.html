@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo(APP_NOMBRE); ?></title>
     <link rel="stylesheet" href="public/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="public/img/icon_64.png" sizes="64x64">
 </head>
 <body>
     <div class="container">
@@ -13,8 +14,11 @@
             <div class="col-lg-4 col-md-6 col-sm-8">
                 <div class="card mt-4">
                     <div class="card-body">
+                        <img src="public/img/calculator_256.png" class="img-fluid mx-auto d-block" alt="logo">
+
                         <h2 class="text-info text-center">Metric</h2>
                         <form id="frm-login" action="index.php" method="POST">
+
                             <div class="form-group">
                                 <label for="email">Correo electrónico</label>
                                 <input id="txt-email" name="email" class="form-control" type="email" required>
