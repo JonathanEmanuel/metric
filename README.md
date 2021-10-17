@@ -1,2 +1,4 @@
 # metric
-Lleva control de tus gastos
+Control de gastos e ingresos
+
+![Logo](public/img/icon_64.png)
