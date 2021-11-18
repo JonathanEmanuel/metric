@@ -51,3 +51,8 @@ ALTER TABLE `movimientos` ADD FOREIGN KEY (`CuadernoId`) REFERENCES `cuadernos`(
 ALTER TABLE `movimientos` ADD FOREIGN KEY (`CategoriaId`) REFERENCES `categoriasmovimiento`(`CategoriaId`);
 ALTER TABLE `cuadernos` ADD FOREIGN KEY (`UsuarioId`) REFERENCES `usuarios`(`UsuarioId`);
 ALTER TABLE `categoriasmovimiento` ADD FOREIGN KEY (`CuadernoId`) REFERENCES `cuadernos`(`CuadernoId`);
+
+INSERT INTO `tiposmovimiento` (`TipoId`, `Descripcion`, `Borrado`) 
+VALUES (1, 'Ingreso', NULL), (2, 'Gasto', NULL);
+
+
