@@ -35,7 +35,6 @@
 
 
             if ( $usuario->estado == 'Conectado' ){
-                //header('Location: '.URL.'/login.php');
                 $mensaje =  'Registro correcto';
                 require ('app/views/registroCorrecto.html');
 

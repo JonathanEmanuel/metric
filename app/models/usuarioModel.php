@@ -19,7 +19,7 @@
                 ':clave' => $this->clave,
                 ':activo' => $this->activo
             ));
-            return $this->rows;
+            $this->usuarioId = $this->ultimoId();
         }
 
 

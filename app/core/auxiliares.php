@@ -33,6 +33,11 @@
     function validarUsuarioClave($email, $clave){
 
     }
+    // Valida Fecha
+    function validarFecha($fecha){
+        $expRegFecha ='/\d{4}\-\d{2}-\d{2}/';
+        return preg_match($expRegFecha, $fecha);
+    }
     // Guarda datos de sesion
     function guardarSesion($usuarioId, $email){
         $_SESSION['appKey'] = APP_CLAVE;
