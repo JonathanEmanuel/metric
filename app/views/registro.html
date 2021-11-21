@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <?php echo(APP_NOMBRE); ?>
+    </title>
+    <link rel="stylesheet" href="public/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="public/css/custom.css">
+    <link rel="icon" type="image/png" href="public/img/icon_64.png" sizes="64x64">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card mt-4 bg-info">
+
+            <div class="row p-3">
+                <div class="col-lg-4 col-md-3 col-sm-2">
+                    <h1 class="text-info text-center">Metric</h1>
+                    <img src="public/img/calculator_256.png" class="img-fluid mx-auto d-block" alt="logo">
+                </div>
+                <div class="col-lg-1 col-md-2"></div>
+                <div class="col-lg-6 col-md-6 col-sm-8">
+                    <div>
+
+
+                        <form id="frm-registro" action="registro.php" method="POST">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input name="nombre" class="form-control" type="text">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="apellido">Apellido</label>
+                                    <input name="apellido" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico</label>
+                                <input id="txt-email" name="email" class="form-control" type="email" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="clave">Contraseña</label>
+                                    <input id="txt-password-1" name="password-1" class="form-control" type="password"
+                                        required>
+                                </div>
+                                <div class=" col-md-6 form-group">
+                                    <label for="clave">Contraseña</label>
+                                    <input id="txt-password-2" name="password-2" class="form-control" type="password"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div id="alert-login" class="alert alert-warning mt-1" role="alert" <?php
+                                echo "style='display:" .$display."'"; ?>>
+                                <?php echo $mensaje; ?>
+                            </div>
+                            <div class="">
+                                <button class="btn btn-dark-blue btn-block" type="submit">Registrarse</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+        let mensaje = document.getElementById('alert-login');
+        document.getElementById('txt-email').addEventListener('focus', function () {
+            mensaje.style.display = 'none';
+        })
+
+        document.getElementById('txt-clave').addEventListener('focus', function () {
+            mensaje.style.display = 'none';
+        })
+    </script>
+</body>
+
+</html>
