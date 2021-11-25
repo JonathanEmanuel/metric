@@ -39,9 +39,10 @@
         return preg_match($expRegFecha, $fecha);
     }
     // Guarda datos de sesion
-    function guardarSesion($usuarioId, $email){
+    function guardarSesion($usuarioId, $email, $nombre){
         $_SESSION['appKey'] = APP_CLAVE;
         $_SESSION['usuarioId'] = $usuarioId;
+        $_SESSION['usuarioNombre'] = $nombre;
         $_SESSION['usuarioEmail'] = $email;
     }
     // Filtado de datos: Elimina espacios al inicio y fin, elimina slashes \, caracteres especias a entidades HTML

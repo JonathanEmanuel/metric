@@ -6,6 +6,7 @@
     <title><?php echo(APP_NOMBRE); ?></title>
     <link rel="stylesheet" href="public/libs/morris/morris.css">
     <link rel="stylesheet" href="public/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="public/css/custom.css">
     <link rel="icon" type="image/png" href="public/img/icon_64.png" sizes="64x64">
     <script src="public/libs/jquery-3.5.1.slim.min.js"></script>
     <script src="public/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -32,9 +33,21 @@
                 <li class="nav-item">
                     <a id="menu-historial" class="nav-link" href="historial">Historial</a>
                 </li>
-                <li class="nav-item">
-                    <a id="menu-salir" class="nav-link" href="logout.php">Salir</a>
-                </li>
             </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <div class="dropdown">
+                    <a class="btn btn-dark-blue dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                      <?php echo $emailUsuario; ?>
+                    </a>
+                  
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <!-- <a class="dropdown-item" href="#">Cuaderno principal</a> -->
+                        <!-- <div class="dropdown-divider"></div> -->
+                        <a id="menu-salir" class="nav-link" href="logout.php">Salir</a>
+
+                    </div>
+                </div>
+            </div>
         </div>
+
     </nav>

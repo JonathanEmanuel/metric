@@ -9,7 +9,7 @@
         public $clave;
 
         public function validarEmailClave(){
-            $this->query = "SELECT U.UsuarioId, U.Email
+            $this->query = "SELECT U.UsuarioId, U.Email, U.Nombre
                             FROM usuarios U
                             WHERE U.Email = :email AND U.Clave = :clave";
             $this->obtenerRows(array(':email' => $this->email, ':clave' => $this->clave));

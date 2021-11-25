@@ -46,9 +46,7 @@
 
             if ( count($datos) > 0 ){
                 $usuario = $datos[0];
-                echo('<br>');
-                echo($usuario['Email']);
-                guardarSesion($usuario['UsuarioId'], $usuario['Email']);
+                guardarSesion($usuario['UsuarioId'], $usuario['Email'], $usuario['Nombre']);
                 header("Location: ./index.php");
 
             } else {
