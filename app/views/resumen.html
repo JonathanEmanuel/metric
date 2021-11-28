@@ -1,0 +1,70 @@
+<div id="app">
+  <section class="container">
+    <div class="row">
+      <article class="col-12 col-md-6">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button type="button" class="btn btn-outline-secondary">
+              Desde
+            </button>
+          </div>
+          <input
+            type="date"
+            v-model="fechaInicio"
+            class="form-control"
+            aria-label="Text input with segmented dropdown button"
+          />
+        </div>
+      </article>
+      <article class="col-12 col-md-6">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button type="button" class="btn btn-outline-secondary">
+              Hasta
+            </button>
+          </div>
+          <input
+            type="date"
+            v-model="fechaFinal"
+            class="form-control"
+            aria-label="Text input with segmented dropdown button"
+          />
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="container">
+    <h3 class="text-center my-4">Recibo Resumen</h3>
+    <button class="btn btn-info" v-on:click="obtenerResumen">
+      obtener resumen
+    </button>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col" colspan="3">
+            Datos desde {{fechaInicio}} al {{fechaFinal}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ingresos en el periodo</td>
+          <td>{{ingreso}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Egresos en el periodo</td>
+          <td>{{egreso}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="2">Ganancia o Perdida al final del periodo</td>
+
+          <td>{{total}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+<script src="../public/js/resumen.js"></script>

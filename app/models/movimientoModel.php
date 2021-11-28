@@ -14,6 +14,8 @@
         public $tipoId;
         public $mes;
         public $anio;
+        public $fechaInicio;
+        public $fechaFinal;
 
         public function listar(){
             $this->query = "SELECT M.`MovimientoId`, M.`Descripcion`, M.`FechaPlanificado`, M.`ValorPlanificado`, M.`FechaReal`, M.`ValorReal`,
@@ -84,6 +86,25 @@
                             WHERE M.`Borrado` IS NULL AND YEAR(M.`FechaPlanificado`) = :anio
                             GROUP BY MONTH( M.`FechaPlanificado`)";
             $this->obtenerRows( array(':anio' => $this->anio));
+            return $this->rows;
+        }
+
+        public function obtenerIngreso(){
+            $this->query = "SELECT sum( ValorPlanificado) AS suma
+                            FROM movimientos m 
+                            WHERE  FechaPlanificado  >= :fechaInicio
+                            AND FechaPlanificado  <= :fechaFinal
+                            AND TipoId = 1";
+            $this->obtenerRows( array(':fechaInicio' => $this->fechaInicio, ':fechaFinal' => $this->fechaFinal));
+            return $this->rows;
+        }
+        public function obtenerEgreso(){
+            $this->query = "SELECT sum( ValorPlanificado) AS suma
+                            FROM movimientos m 
+                            WHERE  FechaPlanificado  >= :fechaInicio
+                            AND FechaPlanificado  <= :fechaFinal
+                            AND TipoId = 2";
+            $this->obtenerRows( array(':fechaInicio' => $this->fechaInicio, ':fechaFinal' => $this->fechaFinal));
             return $this->rows;
         }
     }
