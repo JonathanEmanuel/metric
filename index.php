@@ -1,9 +1,9 @@
 <?php
+    session_start();
     require_once('app/core/manejador.php');
     require_once('app/core/config.php');
     require_once('app/core/auxiliares.php');
     require_once('app/models/loginModel.php');
-    session_start();
 
     $datos = obtener_uri();
     $controlador = $datos[0];

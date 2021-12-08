@@ -53,6 +53,6 @@ ALTER TABLE `cuadernos` ADD FOREIGN KEY (`UsuarioId`) REFERENCES `usuarios`(`Usu
 ALTER TABLE `categoriasmovimiento` ADD FOREIGN KEY (`CuadernoId`) REFERENCES `cuadernos`(`CuadernoId`);
 
 INSERT INTO `tiposmovimiento` (`TipoId`, `Descripcion`, `Borrado`) 
-VALUES (1, 'Ingreso', NULL), (2, 'Gasto', NULL);
+VALUES (1, 'Ingreso', NULL), (2, 'Egresos', NULL);
 
 
