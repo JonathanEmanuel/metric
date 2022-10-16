@@ -12,6 +12,8 @@
         }
 
         public function index($parametro = null) {
+            $emailUsuario = usuarioEmail();
+
             require_once(VISTAS . 'header.html');
             require_once(VISTAS . 'historial.html');
             echo('<script src="public/js/historial.js?1"></script>');
