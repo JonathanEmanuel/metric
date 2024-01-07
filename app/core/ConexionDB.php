@@ -3,10 +3,10 @@
 
     // Al finalizar las consultas ejecutar metodo desconectar()
     class ConexionPDO { 
-        private $servername = "SERVERNAME";
-        private $dbname = "NAME_DB";
-        private $username = "USER_DB";
-        private $password = "PASS_DB";
+        private $servername = SERVIDOR_HOST;
+        private $dbname = NOMBRE_DB;
+        private $username = USUARIO_DB;
+        private $password = CLAVE_DB;
         private $objPDO;
         protected $query = "";
         protected $rows = array();

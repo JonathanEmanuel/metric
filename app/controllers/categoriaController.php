@@ -1,14 +1,19 @@
 <?php
     require_once(MODELOS . 'categoriaModel.php');
+    require_once(MODELOS . 'cuadernoModel.php');
+
 
     class categoriaController {
         public $fechaHora;
         private $autenticacion;
+        public $categoria;
+        public $cuaderno;
+        public $respuestaJSON;
 
         function __construct(){
             $this->respuestaJSON = new RespuestaJSON;
             $this->categoria = new CategoriaModelo;
-
+            $this->cuaderno =  new CuadernoModelo;
         }
 
         public function index($parametro = null) {
@@ -33,7 +38,11 @@
                 $this->respuestaJSON->generarJSON();
                 return;
             }
-            $this->categoria->cuadernoId = 1;
+
+            $this->cuaderno->usuarioId = usuarioId();
+            $cuadernoId = $this->cuaderno->listarUsuario()[0]['CuadernoId'];
+
+            $this->categoria->cuadernoId = $cuadernoId;
             $this->categoria->tipoId = $tipoId;
             $resultados = $this->categoria->listar();
             $this->respuestaJSON->datos = $resultados;
@@ -83,7 +92,11 @@
                 return;
             }
 
-            $this->categoria->cuadernoId = 1;
+            $this->cuaderno->usuarioId = usuarioId();
+            $cuadernoId = $this->cuaderno->listarUsuario()[0]['CuadernoId'];
+
+
+            $this->categoria->cuadernoId = $cuadernoId;
             $this->categoria->categoriaId = $categoriaId;
             $this->categoria->tipoId = $tipoId;
             $this->categoria->descripcion = $descripcion;

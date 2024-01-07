@@ -22,8 +22,14 @@
                                     M.CategoriaId, C.`Descripcion` AS Categoria, M.`Tipoid`
                             FROM movimientos M
                             INNER JOIN categoriasmovimiento C ON C.CategoriaId = M.CategoriaId
-                            WHERE M.`Borrado` IS NULL AND M.`Tipoid` = :tipoId AND MONTH(M.`FechaPlanificado`) = :mes AND YEAR(M.`FechaPlanificado`) = :anio";
-            $this->obtenerRows( array(':tipoId' => $this->tipoId, ':mes' => $this->mes, ':anio' => $this->anio) );
+                            WHERE M.`Borrado` IS NULL AND M.`Tipoid` = :tipoId AND MONTH(M.`FechaPlanificado`) = :mes AND YEAR(M.`FechaPlanificado`) = :anio
+                                AND M.`CuadernoId` = :cuadernoId";
+            $this->obtenerRows( array(
+                    ':tipoId' => $this->tipoId, 
+                    ':cuadernoId' => $this->cuadernoId, 
+                    ':mes' => $this->mes, 
+                    ':anio' => $this->anio
+                ) );
             return $this->rows;
         }
 
@@ -73,8 +79,8 @@
                                     SUM( CASE WHEN M.`Tipoid` = 2 THEN M.`ValorPlanificado` ELSE 0 END) AS Gastos,
                                     SUM( CASE WHEN M.`Tipoid` = 3 THEN M.`ValorPlanificado` ELSE 0 END) AS Ahorros
                             FROM movimientos M
-                            WHERE M.`Borrado` IS NULL AND MONTH(M.`FechaPlanificado`) = :mes AND YEAR(M.`FechaPlanificado`) = :anio";
-            $this->obtenerRows( array(':mes' => $this->mes, ':anio' => $this->anio));
+                            WHERE M.`Borrado` IS NULL AND M.`CuadernoId` = :cuadernoId AND MONTH(M.`FechaPlanificado`) = :mes AND YEAR(M.`FechaPlanificado`) = :anio";
+            $this->obtenerRows( array( ':cuadernoId' => $this->cuadernoId, ':mes' => $this->mes, ':anio' => $this->anio));
             return $this->rows;
         }
 
@@ -83,9 +89,9 @@
                                 SUM( CASE WHEN M.`Tipoid` = 2 THEN M.`ValorPlanificado` ELSE 0 END) AS Gastos,
                                 MONTH(M.`FechaPlanificado`) AS Mes
                             FROM movimientos M
-                            WHERE M.`Borrado` IS NULL AND YEAR(M.`FechaPlanificado`) = :anio
+                            WHERE M.`Borrado` IS NULL AND M.`CuadernoId` = :cuadernoId AND YEAR(M.`FechaPlanificado`) = :anio
                             GROUP BY MONTH( M.`FechaPlanificado`)";
-            $this->obtenerRows( array(':anio' => $this->anio));
+            $this->obtenerRows( array(':cuadernoId' => $this->cuadernoId, ':anio' => $this->anio));
             return $this->rows;
         }
 

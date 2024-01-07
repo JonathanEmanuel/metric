@@ -1,7 +1,10 @@
 <?php
     require_once(MODELOS . 'movimientoModel.php');
+    require_once(MODELOS . 'cuadernoModel.php');
+
 
     class movimientoController {
+        public $movimiento;
         public $movimientoId;
         public $descripcion;
         public $fechaPlanificado;
@@ -11,10 +14,13 @@
         public $categoriaId;
         public $cuadernoId;
         public $tipoId;
+        public $respuestaJSON;
+        public $cuaderno;
 
         function __construct(){
             $this->respuestaJSON = new RespuestaJSON;
             $this->movimiento = new MovimientoModelo;
+            $this->cuaderno =  new CuadernoModelo;
 
         }
 
@@ -69,9 +75,13 @@
                 return;
             }
 
+            $this->cuaderno->usuarioId = usuarioId();
+            $cuadernoId = $this->cuaderno->listarUsuario()[0]['CuadernoId'];
+
             $this->movimiento->mes = $mes;
             $this->movimiento->anio = $anio;
             $this->movimiento->tipoId = $tipoId;
+            $this->movimiento->cuadernoId = $cuadernoId;
             $resultados = $this->movimiento->listar();
             $this->respuestaJSON->datos = $resultados;
             $this->respuestaJSON->error = ($this->movimiento->estado == 'Conectado'  ? 'N' : $this->movimiento->estado);
@@ -155,12 +165,15 @@
                 return;
             }
 
+            $this->cuaderno->usuarioId = usuarioId();
+            $cuadernoId = $this->cuaderno->listarUsuario()[0]['CuadernoId'];
+
 
             $this->movimiento->movimientoId = $movimientoId;
             $this->movimiento->descripcion = $descripcion;
             $this->movimiento->fechaPlanificado = $fechaPlanificado;
             $this->movimiento->valorPlanificado = $valorPlanificado;
-            $this->movimiento->cuadernoId = 1;
+            $this->movimiento->cuadernoId = $cuadernoId;
             $this->movimiento->categoriaId = $categoriaId;
             $this->movimiento->tipoId = $tipoId;
 
@@ -207,6 +220,11 @@
                 $this->respuestaJSON->generarJSON();
                 return;
             }
+
+            $this->cuaderno->usuarioId = usuarioId();
+            $cuadernoId = $this->cuaderno->listarUsuario()[0]['CuadernoId'];
+
+            $this->movimiento->cuadernoId = $cuadernoId;
             $this->movimiento->mes = $mes;
             $this->movimiento->anio = $anio;
             $resultados = $this->movimiento->resumenMes();
@@ -232,7 +250,12 @@
                 $this->respuestaJSON->generarJSON();
                 return;
             }
+
+            $this->cuaderno->usuarioId = usuarioId();
+            $cuadernoId = $this->cuaderno->listarUsuario()[0]['CuadernoId'];
+
             $this->movimiento->anio = $anio;
+            $this->movimiento->cuadernoId = $cuadernoId;
             $resultados = $this->movimiento->ingresosSalidasAnio();
             $this->respuestaJSON->datos = $resultados;
             $this->respuestaJSON->error = ($this->movimiento->estado == 'Conectado'  ? 'N' : $this->movimiento->estado);
